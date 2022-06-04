@@ -1,3 +1,28 @@
+*{
+    box-sizing: border-box;
+}
+
 canvas {
     border: black dashed;
+}
+
+body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.wheelContainer{
+    position: relative;
+    min-height: 410px;
+    min-width: 410px;
+}
+
+.wheelCanvas{
+    position: absolute;
+    z-index: 1;
+}
+
+.pointerCanvas{
+    position: absolute;
+    z-index: 2;
 }
