@@ -4,29 +4,16 @@
     <meta charset="UTF-8">
     <title>Benjo's Wheel Picker</title>
     <link href="./stylesheet.css" rel="stylesheet">
+    <script src="index.js" type="module"></script>
     <script src="wheel.js" type="module"></script>
 </head>
 <body>
 <div id="wheelArea">
-    <wheel-picker></wheel-picker>
+
 </div>
 <div id="settingsArea">
     <p> This where settings will be displayed. If only they existed. </p>
 </div>
 </body>
 
-<template id="wheel">
-    <link href="./stylesheet.css" rel="stylesheet">
-    <div class="container">
-        <div class="wheelContainer">
-            <canvas class="wheelCanvas" width="400" height="400"></canvas>
-            <canvas class="pointerCanvas" width="400" height="400"></canvas>
-        </div>
-        <div class="buttonGroup">
-            <button>Spin Wheel</button>
-            <button>Delete Wheel</button>
-            <button>Settings</button>
-        </div>
-    </div>
-</template>
 </html>
