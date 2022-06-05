@@ -1,9 +1,3 @@
-const WHEEL = {
-    "id": null,
-    "items": [],
-    "colors": []
-}
-
 function init(){
     const wheelList = localStorage.getItem("wheels)")
     if (wheelList){
@@ -21,12 +15,12 @@ function init(){
 function makeDefaultWheel(){
     const wheel = document.createElement("wheel-picker");
     wheel.setAttribute("id", "0");
-    wheel.setAttribute("items", "['Placeholder']");
-    wheel.setAttribute("colors", "red");
+    wheel.setAttribute("items", '["Placeholder", "Lorem Ipsum"]');
+    wheel.setAttribute("colors", '["red", "blue"]');
     const wheelObj = {
         "id": "0",
-        "items": ["Placeholder"],
-        "colors": ["red"]
+        "items": ["Placeholder", "Lorem Ipsum"],
+        "colors": ["red", "blue"]
     };
     localStorage.setItem("wheels", JSON.stringify(wheelObj));
     document.querySelector("#wheelArea").appendChild(wheel);

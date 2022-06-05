@@ -11,12 +11,14 @@ WHEELTEMP.innerHTML='<link href="./stylesheet.css" rel="stylesheet">\n' +
     '            <button>Settings</button>\n' +
     '        </div>\n' +
     '    </div>'
+const RADIANCONVERTION = Math.PI / 180;
+
 
 class fortuneWheel extends HTMLElement{
 
     constructor() {
         super();
-        this.angle = 0;
+        this.currentAngle = 0;
         this.colors = [];
         this.items = [];
     }
@@ -26,24 +28,36 @@ class fortuneWheel extends HTMLElement{
         this.shadow = this.attachShadow( {mode: "open"} )
         this.shadow.appendChild(WHEELTEMP.content.cloneNode(true));
         this.wheel = this.shadow.querySelector(".wheelCanvas");
+        this.wheelCtx = this.wheel.getContext("2d");
+        this.getValues();
         this.drawWheel();
         this.drawPointer();
     }
 
     getValues(){
-
+        this.items = JSON.parse(this.getAttribute("items"));
+        this.colors = JSON.parse(this.getAttribute("colors"));
     }
 
     update(){
         this.wheel.clearRect(0, 0, this.wheel.height, this.wheel.width);
+        this.getValues();
         this.drawWheel();
     }
 
     drawWheel(){
-        this.wheelCtx = this.wheel.getContext("2d");
-        this.wheelCtx.fillStyle = "darkblue";
-        this.wheelCtx.arc(200,200,150,0, Math.PI*2);
-        this.wheelCtx.fill();
+        const arcSize = 360 / this.items.length;
+        let completion = 0;
+
+        // Draws each part of the circle arc by arc, minuses 90*RADIANCONVERSION so that it starts at the top
+        for (let i = 0; i < this.items.length; i++){
+            this.wheelCtx.beginPath();
+            this.wheelCtx.fillStyle = this.colors[i]
+            this.wheelCtx.arc(200, 200, 150, ((completion * RADIANCONVERTION)-90 * RADIANCONVERTION), ((completion + arcSize) * RADIANCONVERTION  - 90 * RADIANCONVERTION));
+            this.wheelCtx.fill();
+            this.wheelCtx.closePath();
+            completion += arcSize;
+        }
     }
 
     drawPointer(){
