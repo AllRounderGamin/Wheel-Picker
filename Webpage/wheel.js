@@ -25,6 +25,7 @@ class fortuneWheel extends HTMLElement{
     // custom elements mdn page for checking attributes changed callback if needed
 
     connectedCallback(){
+        // Sets up shadow DOM and creates wheel
         this.shadow = this.attachShadow( {mode: "open"} )
         this.shadow.appendChild(WHEELTEMP.content.cloneNode(true));
         this.wheel = this.shadow.querySelector(".wheelCanvas");
@@ -41,14 +42,18 @@ class fortuneWheel extends HTMLElement{
     }
 
     update(){
+        // Will be called when wheel settings are updated
         this.wheel.clearRect(0, 0, this.wheel.height, this.wheel.width);
         this.getValues();
         this.drawWheel();
     }
 
     drawWheel(){
+        debugger;
         this.arcSize = 360 / this.items.length;
         let completion = 0;
+        this.wheelCtx.font = "32px serif";
+        this.wheelCtx.textBaseline = "middle";
         // Draws each part of the circle arc by arc, minuses 90 * RADIANCONVERSION so that it starts at the top
         for (let i = 0; i < this.items.length; i++){
             this.wheelCtx.beginPath();
@@ -57,10 +62,20 @@ class fortuneWheel extends HTMLElement{
             this.wheelCtx.fill();
             this.wheelCtx.closePath();
             completion += this.arcSize;
+
+            // Draws rotated text
+            this.wheelCtx.save();
+            this.wheelCtx.translate(this.wheel.width / 2, this.wheel.height / 2);
+            this.wheelCtx.rotate((this.arcSize - completion) * RADIANCONVERTION);
+            this.wheelCtx.fillStyle = "black";
+            this.wheelCtx.fillText("     " + this.items[i], 0, 0, 130);
+            this.wheelCtx.restore();
+
         }
     }
 
     drawPointer(){
+        // Draws triangle at 90deg point of wheel
         this.pointer = this.shadow.querySelector(".pointerCanvas");
         this.pointCtx = this.pointer.getContext("2d");
         this.pointCtx.fillStyle = "black";
@@ -73,6 +88,7 @@ class fortuneWheel extends HTMLElement{
     }
 
     spinWheel(){
+        // Adjusts CSS properties to and adds class to trigger animation
         const toSpin = 1080 + (Math.random() * 360);
         this.wheel.style.setProperty("--s", (this.currentAngle + "deg"));
         this.wheel.style.setProperty("--e", (Math.floor(this.currentAngle+toSpin) + "deg"));
@@ -82,10 +98,11 @@ class fortuneWheel extends HTMLElement{
     }
 
     verifyAnswer(){
+        // calculates what arc is at the 90 degree point / pointer arrow
         this.wheel.classList.remove("active");
         this.wheel.style.setProperty("--r", this.currentAngle + "deg");
         const winnerPos = Math.floor(((this.currentAngle + 90) % 360) / this.arcSize);
-
+        // Announces Winner
         this.pointCtx.clearRect(0, 300, 400, 400);
         this.pointCtx.font = "32px serif";
         this.pointCtx.strokeText("Winner is " + this.items[winnerPos], 30, 385, 360)
