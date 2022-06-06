@@ -85,7 +85,12 @@ class fortuneWheel extends HTMLElement{
         this.wheel.classList.remove("active");
         this.wheel.style.setProperty("--r", this.currentAngle + "deg");
         const winnerPos = Math.floor(((this.currentAngle + 90) % 360) / this.arcSize);
-        console.log("Winner is:", this.items[winnerPos]);
+
+        this.pointCtx.clearRect(0, 300, 400, 400);
+        this.pointCtx.font = "32px serif";
+        this.pointCtx.strokeText("Winner is " + this.items[winnerPos], 30, 385, 360)
+        this.pointCtx.fillStyle = this.colors[winnerPos]
+        this.pointCtx.fillText("Winner is " + this.items[winnerPos], 30, 385, 360);
     }
 
 }
