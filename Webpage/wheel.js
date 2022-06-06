@@ -47,16 +47,16 @@ class fortuneWheel extends HTMLElement{
     }
 
     drawWheel(){
-        const arcSize = 360 / this.items.length;
+        this.arcSize = 360 / this.items.length;
         let completion = 0;
         // Draws each part of the circle arc by arc, minuses 90 * RADIANCONVERSION so that it starts at the top
         for (let i = 0; i < this.items.length; i++){
             this.wheelCtx.beginPath();
             this.wheelCtx.fillStyle = this.colors[i]
-            this.wheelCtx.arc(200, 200, 150, ((completion * RADIANCONVERTION)-90 * RADIANCONVERTION), ((completion + arcSize) * RADIANCONVERTION  - 90 * RADIANCONVERTION));
+            this.wheelCtx.arc(200, 200, 150, ((completion * RADIANCONVERTION)-90 * RADIANCONVERTION), ((completion + this.arcSize) * RADIANCONVERTION  - 90 * RADIANCONVERTION));
             this.wheelCtx.fill();
             this.wheelCtx.closePath();
-            completion += arcSize;
+            completion += this.arcSize;
         }
     }
 
@@ -77,15 +77,15 @@ class fortuneWheel extends HTMLElement{
         this.wheel.style.setProperty("--s", (this.currentAngle + "deg"));
         this.wheel.style.setProperty("--e", (Math.floor(this.currentAngle+toSpin) + "deg"));
         this.wheel.classList.add("active");
-        this.currentAngle = Math.floor(this.currentAngle+toSpin);
+        this.currentAngle = Math.floor(this.currentAngle +toSpin) % 360;
         this.wheel.addEventListener("animationend", this.verifyAnswer.bind(this), {once: true})
     }
 
     verifyAnswer(){
         this.wheel.classList.remove("active");
         this.wheel.style.setProperty("--r", this.currentAngle + "deg");
-        const winnerPos = ((360 - (this.currentAngle % 360) - 180) % this.items.length);
-        //console.log("Winner is:", this.items[winnerPos]);
+        const winnerPos = Math.floor(((this.currentAngle + 90) % 360) / this.arcSize);
+        console.log("Winner is:", this.items[winnerPos]);
     }
 
 }

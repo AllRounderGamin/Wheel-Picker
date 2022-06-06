@@ -11,3 +11,7 @@ No outside source material way be used
 
 ### Addendum
 It needs to not stop on the line between entries - i.e. should be easy to confidently declare a result.
+
+## Notes for User
+Program automatically announces winner for you, this ensures there are no issues with pixel perfect results.
+However, this math to do this will only work to a maximum of 360 items per wheel.
