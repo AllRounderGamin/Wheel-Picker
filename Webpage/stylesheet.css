@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-canvas {
+.pointerCanvas{
     border: black dashed;
 }
 
@@ -20,9 +20,25 @@ body{
 .wheelCanvas{
     position: absolute;
     z-index: 1;
+    transform: rotate(var(--r, 0deg));
 }
 
 .pointerCanvas{
     position: absolute;
     z-index: 2;
+}
+
+.wheelCanvas.active{
+    animation-name: spin;
+    animation-duration: 3000ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes spin {
+    from{
+        transform: rotate(var(--s, 0deg));
+    }
+    to{
+        transform: rotate(var(--e, 0deg));
+    }
 }
