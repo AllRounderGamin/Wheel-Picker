@@ -6,9 +6,9 @@ WHEELTEMP.innerHTML='<link href="./stylesheet.css" rel="stylesheet">\n' +
     '            <canvas class="pointerCanvas" width="400" height="400"></canvas>\n' +
     '        </div>\n' +
     '        <div class="buttonGroup">\n' +
-    '            <button class="spinButton">Spin Wheel</button>\n' +
-    '            <button>Delete Wheel</button>\n' +
-    '            <button>Settings</button>\n' +
+    '            <button class="spinButton" type="button">Spin Wheel</button>\n' +
+    '            <button type="button">Delete Wheel</button>\n' +
+    '            <button type="button">Settings</button>\n' +
     '        </div>\n' +
     '    </div>'
 const RADIANCONVERTION = Math.PI / 180;
@@ -103,7 +103,7 @@ class fortuneWheel extends HTMLElement{
         this.wheel.style.setProperty("--r", this.currentAngle + "deg");
         const winnerPos = Math.floor(((this.currentAngle + 90) % 360) / this.arcSize);
         // Announces Winner
-        this.pointCtx.clearRect(0, 300, 400, 400);
+        this.pointCtx.clearRect(0, 300, 400, 100);
         this.pointCtx.font = "32px serif";
         this.pointCtx.strokeText("Winner is " + this.items[winnerPos], 30, 385, 360)
         this.pointCtx.fillStyle = this.colors[winnerPos]

@@ -3,12 +3,17 @@
 }
 
 .pointerCanvas{
-    border: black dashed;
+    border: black dashed thin;
 }
 
 body{
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+.buttonGroup{
+    margin: 20px 0;
+    position: relative;
 }
 
 .wheelContainer{
