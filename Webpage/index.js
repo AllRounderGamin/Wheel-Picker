@@ -15,12 +15,12 @@ function init(){
 function makeDefaultWheel(){
     const wheel = document.createElement("wheel-picker");
     wheel.setAttribute("id", "0");
-    wheel.setAttribute("items", '["Placeholder", "Lorem Ipsum"]');
-    wheel.setAttribute("colors", '["red", "blue"]');
+    wheel.setAttribute("items", '["Placeholder", "Lorem Ipsum", "Test"]');
+    wheel.setAttribute("colors", '["red", "blue", "green"]');
     const wheelObj = {
         "id": "0",
-        "items": ["Placeholder", "Lorem Ipsum"],
-        "colors": ["red", "blue"]
+        "items": ["Placeholder", "Lorem Ipsum", "Test"],
+        "colors": ["red", "blue", "green"]
     };
     localStorage.setItem("wheels", JSON.stringify(wheelObj));
     document.querySelector("#wheelArea").appendChild(wheel);
