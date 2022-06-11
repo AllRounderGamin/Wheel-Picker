@@ -7,7 +7,7 @@ WHEELTEMP.innerHTML='<link href="./stylesheet.css" rel="stylesheet">\n' +
     '        </div>\n' +
     '        <div class="buttonGroup">\n' +
     '            <button class="spinButton" type="button">Spin Wheel</button>\n' +
-    '            <button type="button">Delete Wheel</button>\n' +
+    '            <button class="deleteButton" type="button">Delete Wheel</button>\n' +
     '            <button type="button">Settings</button>\n' +
     '        </div>\n' +
     '    </div>'
@@ -29,6 +29,7 @@ class fortuneWheel extends HTMLElement{
         this.wheel = this.shadow.querySelector(".wheelCanvas");
         this.wheelCtx = this.wheel.getContext("2d");
         this.shadow.querySelector(".spinButton").addEventListener("click", this.spinWheel.bind(this));
+        this.shadow.querySelector(".deleteButton").addEventListener("click", this.deleteWheel.bind(this));
         this.getValues();
         this.drawWheel();
         this.drawPointer();
@@ -106,6 +107,17 @@ class fortuneWheel extends HTMLElement{
         this.pointCtx.strokeText("Winner is " + this.items[winnerPos], 30, 385, 360)
         this.pointCtx.fillStyle = this.colors[winnerPos]
         this.pointCtx.fillText("Winner is " + this.items[winnerPos], 30, 385, 360);
+    }
+
+    deleteWheel(){
+        const wheelList = JSON.parse(localStorage.getItem("wheels"));
+        for (let wheel of wheelList){
+            if (wheel.id === this.getAttribute("id")){
+                wheelList.splice(wheelList.indexOf(wheel), 1);
+            }
+        }
+        localStorage.setItem("wheels", JSON.stringify(wheelList));
+        this.shadowRoot.host.remove();
     }
 
 }

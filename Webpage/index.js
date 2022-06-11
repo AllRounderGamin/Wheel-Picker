@@ -1,6 +1,6 @@
 function init(){
     const wheelList = JSON.parse(localStorage.getItem("wheels"));
-    if (wheelList){
+    if (wheelList && wheelList.length > 0){
         for (let wheel of wheelList){
             makeCustomWheel(wheel)
         }
@@ -32,7 +32,7 @@ function makeDefaultWheel(){
 function makeNewWheel(){
     const wheel = document.createElement("wheel-picker");
     const LS = JSON.parse(localStorage.getItem("wheels"));
-    const id = (parseInt(localStorage.getItem("next-id")) + 1).toString();
+    const id = (localStorage.getItem("next-id"));
     wheel.setAttribute("id", id)
     wheel.setAttribute("items", '["Click Settings", "To Customise"]');
     wheel.setAttribute("colors", '["red", "blue"]');
@@ -43,7 +43,7 @@ function makeNewWheel(){
     };
     LS.push(wheelObj);
     localStorage.setItem("wheels", JSON.stringify(LS));
-    localStorage.setItem("next-id", id);
+    localStorage.setItem("next-id", (parseInt(id) + 1).toString());
     document.querySelector("#wheelArea").appendChild(wheel);
 }
 

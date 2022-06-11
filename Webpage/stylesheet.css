@@ -6,7 +6,7 @@
     border: black dashed thin;
 }
 
-body{
+#main{
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -16,13 +16,14 @@ body{
     position: relative;
 }
 
-#addWheel{
-    position: absolute;
-    right: 10px;
+#addWheelArea{
+    position: sticky;
+    top: 0;
 }
 
-#addWheelButton{
-    position: sticky;
+#addWheel{
+    position: absolute;
+    right: 0;
 }
 
 .wheelContainer{
