@@ -16,6 +16,15 @@ body{
     position: relative;
 }
 
+#addWheel{
+    position: absolute;
+    right: 10px;
+}
+
+#addWheelButton{
+    position: sticky;
+}
+
 .wheelContainer{
     position: relative;
     min-height: 410px;
