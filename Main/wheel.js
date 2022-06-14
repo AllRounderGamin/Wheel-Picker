@@ -107,9 +107,10 @@ class fortuneWheel extends HTMLElement{
         // Announces Winner
         this.pointCtx.clearRect(0, 300, 400, 100);
         this.pointCtx.font = "32px serif";
-        this.pointCtx.strokeText("Winner is " + this.items[winnerPos], 30, 385, 360)
+        const text = "Winner is " + this.items[winnerPos];
+        this.pointCtx.strokeText(text, 200 - this.pointCtx.measureText(text).width / 2, 385, 360)
         this.pointCtx.fillStyle = this.colors[winnerPos]
-        this.pointCtx.fillText("Winner is " + this.items[winnerPos], 30, 385, 360);
+        this.pointCtx.fillText(text, 200 - this.pointCtx.measureText(text).width / 2, 385, 360);
     }
 
     deleteWheel(){

@@ -92,7 +92,7 @@ function loadSettings(e){
         option.querySelector(".color").value = colors[i];
         remove = option.querySelector(".remove");
         remove.setAttribute("optid", i.toString());
-        remove.addEventListener("click", removeOption)
+        remove.addEventListener("click", removeOption);
         settingArea.appendChild(option);
     }
     const addOpt = document.createElement("button");
@@ -100,7 +100,7 @@ function loadSettings(e){
     addOpt.textContent = "Add Option";
     addOpt.setAttribute("type", "button");
     addOpt.addEventListener("click", addOption);
-    settingArea.appendChild(addOpt)
+    settingArea.appendChild(addOpt);
 
     const submit = document.createElement("button");
     submit.setAttribute("wheelid", wheelId);
