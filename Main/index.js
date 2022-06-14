@@ -74,7 +74,7 @@ function loadSettings(e){
         setUpButton(i.toString(), "optid", "Remove Option", removeOption, option);
         settingArea.appendChild(option);
     }
-    setUpButton("id", "addOpt", "Add Option", addOption, settingArea);
+    setUpButton("addOpt", "id", "Add Option", addOption, settingArea);
     setUpButton(wheelId, "wheelid", "Save Settings", saveSettings, settingArea)
 }
 
@@ -143,7 +143,8 @@ function addOption(){
     let option = document.createElement("div");
     option.setAttribute("class", "setting");
     option.appendChild(document.querySelector("#option").content.cloneNode(true));
-    const subButton = document.querySelector("#addOption");
+    const subButton = document.querySelector("#addOpt");
+    setUpButton(subButton.parentNode.querySelectorAll(".setting").length, "optid", "Remove Option", removeOption, option);
     subButton.parentNode.insertBefore(option, subButton);
 }
 
