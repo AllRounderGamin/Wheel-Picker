@@ -1,7 +1,7 @@
 # Wheel-Picker
 Wheel of Fortune challenge - UoP Summer 2022
 
-[Webpage](https://allroundergamin.github.io/Wheel-Picker/Webpage/)
+[Webpage](https://allroundergamin.github.io/Wheel-Picker/Minified/)
 
 ## Challenge
 >If you're at a loss for what to do over the summer, a small programming challenge:
