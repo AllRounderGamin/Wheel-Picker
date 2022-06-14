@@ -17,3 +17,5 @@ No outside source material way be used
 ## Notes for User
 Program automatically announces winner for you, this ensures there are no issues with pixel perfect results.
 However, this math to do this will only work to a maximum of 360 items per wheel.
+
+Minified folder is used by website and is 7.8KB in total, the main folder is the same code in a non minified format.
