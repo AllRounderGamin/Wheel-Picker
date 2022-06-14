@@ -62,7 +62,7 @@ function makeCustomWheel(wheelInfo){
     wheel.setAttribute("colors", wheelInfo.colors);
     wheel.setAttribute("customising", "false");
     const settings = wheel.shadowRoot.querySelector(".settingsButton");
-    settings.setAttribute("id", wheelInfo.id);
+    settings.setAttribute("WheelId", wheelInfo.id);
     settings.addEventListener("click", loadSettings);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
@@ -72,7 +72,7 @@ function loadSettings(e){
     clearArea(settingArea);
 
     let wheelSettings;
-    const wheelId = e.target.id;
+    const wheelId = e.target.getAttribute("wheelid");
     const wheelList = document.querySelectorAll("wheel-picker");
     for (let wheel of wheelList){
         if (wheel.id === wheelId){
@@ -91,9 +91,15 @@ function loadSettings(e){
         option.querySelector(".color").value = colors[i];
         settingArea.appendChild(option);
     }
+    const addOpt = document.createElement("button");
+    addOpt.setAttribute("id", "addOption");
+    addOpt.textContent = "Add Option";
+    addOpt.setAttribute("type", "button");
+    addOpt.addEventListener("click", addOption);
+    settingArea.appendChild(addOpt)
 
     const submit = document.createElement("button");
-    submit.setAttribute("id", wheelId);
+    submit.setAttribute("wheelid", wheelId);
     submit.textContent = "Save Settings";
     submit.setAttribute("type", "button");
     submit.addEventListener("click", saveSettings);
@@ -101,7 +107,7 @@ function loadSettings(e){
 }
 
 function saveSettings(e){
-    const wheelId = e.target.id;
+    const wheelId = e.target.getAttribute("wheelid");
     let wheelSettings;
     const wheelList = document.querySelectorAll("wheel-picker");
     for (let wheel of wheelList){
@@ -129,7 +135,7 @@ function saveSettings(e){
     let wheelIndex;
     let wheelObj;
     for (let wheel of wheels){
-        if (wheel.id === this.getAttribute("id")){
+        if (wheel.id === wheelId){
             wheelIndex = wheels.indexOf(wheel);
             wheelObj = wheels[wheelIndex];
         }
@@ -140,6 +146,14 @@ function saveSettings(e){
     wheels[wheelIndex] = wheelObj;
 
     localStorage.setItem("wheels", JSON.stringify(wheels));
+}
+
+function addOption(){
+    let option = document.createElement("div");
+    option.setAttribute("class", "setting");
+    option.appendChild(document.querySelector("#option").content.cloneNode(true));
+    const subButton = document.querySelector("#addOption");
+    subButton.parentNode.insertBefore(option, subButton);
 }
 
 function clearArea(area){
