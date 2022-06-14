@@ -119,6 +119,10 @@ class fortuneWheel extends HTMLElement{
                 wheelList.splice(wheelList.indexOf(wheel), 1);
             }
         }
+        const area = document.querySelector("#settingsArea");
+        while (area.hasChildNodes()){
+            area.removeChild(area.firstChild);
+        }
         localStorage.setItem("wheels", JSON.stringify(wheelList));
         this.shadowRoot.host.remove();
     }

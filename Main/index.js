@@ -28,7 +28,7 @@ function makeDefaultWheel(){
     wheelList.push(wheelObj);
     localStorage.setItem("wheels", JSON.stringify(wheelList));
     const settings = wheel.shadowRoot.querySelector(".settingsButton");
-    settings.setAttribute("id", "0");
+    settings.setAttribute("wheelid", "0");
     settings.addEventListener("click", loadSettings);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
@@ -50,7 +50,7 @@ function makeNewWheel(){
     localStorage.setItem("wheels", JSON.stringify(LS));
     localStorage.setItem("next-id", (parseInt(id) + 1).toString());
     const settings = wheel.shadowRoot.querySelector(".settingsButton");
-    settings.setAttribute("id", id);
+    settings.setAttribute("wheelid", id);
     settings.addEventListener("click", loadSettings);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
@@ -62,7 +62,7 @@ function makeCustomWheel(wheelInfo){
     wheel.setAttribute("colors", wheelInfo.colors);
     wheel.setAttribute("customising", "false");
     const settings = wheel.shadowRoot.querySelector(".settingsButton");
-    settings.setAttribute("WheelId", wheelInfo.id);
+    settings.setAttribute("wheelid", wheelInfo.id);
     settings.addEventListener("click", loadSettings);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
