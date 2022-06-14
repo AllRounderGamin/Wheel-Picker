@@ -8,7 +8,7 @@ WHEELTEMP.innerHTML='<link href="./stylesheet.css" rel="stylesheet">\n' +
     '        <div class="buttonGroup">\n' +
     '            <button class="spinButton" type="button">Spin Wheel</button>\n' +
     '            <button class="deleteButton" type="button">Delete Wheel</button>\n' +
-    '            <button type="button">Settings</button>\n' +
+    '            <button class="settingsButton" type="button">Settings</button>\n' +
     '        </div>\n' +
     '    </div>'
 
@@ -19,10 +19,10 @@ class fortuneWheel extends HTMLElement{
         this.currentAngle = 0;
         this.colors = [];
         this.items = [];
+        this.initialise();
     }
-    // custom elements mdn page for checking attributes changed callback if needed
 
-    connectedCallback(){
+    initialise(){
         // Sets up shadow DOM and creates wheel
         this.shadow = this.attachShadow( {mode: "open"} )
         this.shadow.appendChild(WHEELTEMP.content.cloneNode(true));
@@ -30,9 +30,17 @@ class fortuneWheel extends HTMLElement{
         this.wheelCtx = this.wheel.getContext("2d");
         this.shadow.querySelector(".spinButton").addEventListener("click", this.spinWheel.bind(this));
         this.shadow.querySelector(".deleteButton").addEventListener("click", this.deleteWheel.bind(this));
+        this.drawPointer();
+    }
+
+    static get observedAttributes(){
+        return ["customising"];
+    }
+
+    attributeChangedCallback(){
+        // Will be called when wheel settings are updated
         this.getValues();
         this.drawWheel();
-        this.drawPointer();
     }
 
     getValues(){
@@ -40,14 +48,8 @@ class fortuneWheel extends HTMLElement{
         this.colors = JSON.parse(this.getAttribute("colors"));
     }
 
-    update(){
-        // Will be called when wheel settings are updated
-        this.wheel.clearRect(0, 0, this.wheel.height, this.wheel.width);
-        this.getValues();
-        this.drawWheel();
-    }
-
     drawWheel(){
+        this.wheelCtx.clearRect(0, 0, this.wheel.height, this.wheel.width);
         this.arcSize = 2*Math.PI / this.items.length;
         let completion = 0;
         this.wheelCtx.font = "32px serif";
