@@ -65,7 +65,7 @@ function loadSettings(e){
     wheelSettings.setAttribute("customising", "true");
     const items = wheelSettings.items;
     const colors = wheelSettings.colors;
-    for (let i = 0; i < wheelSettings.items.length; i++){
+    for (let i = 0; i < items.length; i++){
         let option = document.createElement("div");
         option.setAttribute("class", "setting");
         option.appendChild(document.querySelector("#option").content.cloneNode(true));
