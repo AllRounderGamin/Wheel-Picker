@@ -16,20 +16,14 @@ function init(){
 function makeDefaultWheel(){
     const wheel = document.createElement("wheel-picker");
     const wheelList = [];
-    wheel.setAttribute("id", "0");
-    wheel.setAttribute("items", '["Placeholder", "Lorem Ipsum", "Test"]');
-    wheel.setAttribute("colors", '["red", "blue", "green"]');
-    wheel.setAttribute("customising", "false");
     const wheelObj = {
         "id": "0",
         "items": '["Placeholder", "Lorem Ipsum", "Test"]',
         "colors": '["red", "blue", "green"]'
     };
+    setUpAttributes(wheel, wheelObj);
     wheelList.push(wheelObj);
     localStorage.setItem("wheels", JSON.stringify(wheelList));
-    const settings = wheel.shadowRoot.querySelector(".settingsButton");
-    settings.setAttribute("wheelid", "0");
-    settings.addEventListener("click", loadSettings);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
 
@@ -37,33 +31,21 @@ function makeNewWheel(){
     const wheel = document.createElement("wheel-picker");
     const LS = JSON.parse(localStorage.getItem("wheels"));
     const id = (localStorage.getItem("next-id"));
-    wheel.setAttribute("id", id);
-    wheel.setAttribute("items", '["Click Settings", "To Customise"]');
-    wheel.setAttribute("colors", '["red", "blue"]');
-    wheel.setAttribute("customising", "false");
     const wheelObj = {
         "id": id,
         "items": '["Click Settings", "To Customise"]',
         "colors": '["red", "blue"]'
     };
+    setUpAttributes(wheel, wheelObj);
     LS.push(wheelObj);
     localStorage.setItem("wheels", JSON.stringify(LS));
     localStorage.setItem("next-id", (parseInt(id) + 1).toString());
-    const settings = wheel.shadowRoot.querySelector(".settingsButton");
-    settings.setAttribute("wheelid", id);
-    settings.addEventListener("click", loadSettings);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
 
 function makeCustomWheel(wheelInfo){
     const wheel = document.createElement("wheel-picker");
-    wheel.setAttribute("id", wheelInfo.id);
-    wheel.setAttribute("items", wheelInfo.items);
-    wheel.setAttribute("colors", wheelInfo.colors);
-    wheel.setAttribute("customising", "false");
-    const settings = wheel.shadowRoot.querySelector(".settingsButton");
-    settings.setAttribute("wheelid", wheelInfo.id);
-    settings.addEventListener("click", loadSettings);
+    setUpAttributes(wheel, wheelInfo);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
 
@@ -83,31 +65,17 @@ function loadSettings(e){
     wheelSettings.setAttribute("customising", "true");
     const items = wheelSettings.items;
     const colors = wheelSettings.colors;
-    let remove;
     for (let i = 0; i < wheelSettings.items.length; i++){
         let option = document.createElement("div");
         option.setAttribute("class", "setting");
         option.appendChild(document.querySelector("#option").content.cloneNode(true));
         option.querySelector(".item").value = items[i];
         option.querySelector(".color").value = colors[i];
-        remove = option.querySelector(".remove");
-        remove.setAttribute("optid", i.toString());
-        remove.addEventListener("click", removeOption);
+        setUpButton(i.toString(), "optid", "Remove Option", removeOption, option);
         settingArea.appendChild(option);
     }
-    const addOpt = document.createElement("button");
-    addOpt.setAttribute("id", "addOption");
-    addOpt.textContent = "Add Option";
-    addOpt.setAttribute("type", "button");
-    addOpt.addEventListener("click", addOption);
-    settingArea.appendChild(addOpt);
-
-    const submit = document.createElement("button");
-    submit.setAttribute("wheelid", wheelId);
-    submit.textContent = "Save Settings";
-    submit.setAttribute("type", "button");
-    submit.addEventListener("click", saveSettings);
-    settingArea.appendChild(submit);
+    setUpButton("id", "addOpt", "Add Option", addOption, settingArea);
+    setUpButton(wheelId, "wheelid", "Save Settings", saveSettings, settingArea)
 }
 
 function saveSettings(e){
@@ -152,10 +120,23 @@ function saveSettings(e){
     localStorage.setItem("wheels", JSON.stringify(wheels));
 }
 
-function removeOption(e){
-    const allOptions = document.querySelectorAll(".setting");
-    const option = allOptions[e.target.getAttribute("optid")];
-    option.remove();
+function setUpAttributes(wheel, attr){
+    wheel.setAttribute("id", attr.id);
+    wheel.setAttribute("items", attr.items);
+    wheel.setAttribute("colors", attr.colors);
+    wheel.setAttribute("customising", "false");
+    const settings = wheel.shadowRoot.querySelector(".settingsButton");
+    settings.setAttribute("wheelid", attr.id);
+    settings.addEventListener("click", loadSettings);
+}
+
+function setUpButton(id, attr, name, event, area){
+    const button = document.createElement("button");
+    button.setAttribute(attr, id);
+    button.textContent = name;
+    button.setAttribute("type", "button");
+    button.addEventListener("click", event);
+    area.appendChild(button);
 }
 
 function addOption(){
@@ -164,6 +145,12 @@ function addOption(){
     option.appendChild(document.querySelector("#option").content.cloneNode(true));
     const subButton = document.querySelector("#addOption");
     subButton.parentNode.insertBefore(option, subButton);
+}
+
+function removeOption(e){
+    const allOptions = document.querySelectorAll(".setting");
+    const option = allOptions[e.target.getAttribute("optid")];
+    option.remove();
 }
 
 function clearArea(area){
