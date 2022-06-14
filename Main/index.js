@@ -27,6 +27,9 @@ function makeDefaultWheel(){
     };
     wheelList.push(wheelObj);
     localStorage.setItem("wheels", JSON.stringify(wheelList));
+    const settings = wheel.shadowRoot.querySelector(".settingsButton");
+    settings.setAttribute("id", "0");
+    settings.addEventListener("click", loadSettings);
     document.querySelector("#wheelArea").appendChild(wheel);
 }
 
