@@ -65,13 +65,14 @@ class fortuneWheel extends HTMLElement{
             completion += this.arcSize;
 
             // Draws rotated text
-            this.wheelCtx.save();
-            this.wheelCtx.translate(this.wheel.width / 2, this.wheel.height / 2);
-            this.wheelCtx.rotate(-Math.PI/2 + (completion - (this.arcSize/2)));
-            this.wheelCtx.fillStyle = "black";
-            this.wheelCtx.fillText("     " + this.items[i], 0, 0, 130);
-            this.wheelCtx.restore();
-
+            if (this.items.length < 10) {
+                this.wheelCtx.save();
+                this.wheelCtx.translate(this.wheel.width / 2, this.wheel.height / 2);
+                this.wheelCtx.rotate(-Math.PI / 2 + (completion - (this.arcSize / 2)));
+                this.wheelCtx.fillStyle = "black";
+                this.wheelCtx.fillText("     " + this.items[i], 0, 0, 130);
+                this.wheelCtx.restore();
+            }
         }
     }
 
