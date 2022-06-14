@@ -83,12 +83,16 @@ function loadSettings(e){
     wheelSettings.setAttribute("customising", "true");
     const items = wheelSettings.items;
     const colors = wheelSettings.colors;
+    let remove;
     for (let i = 0; i < wheelSettings.items.length; i++){
         let option = document.createElement("div");
         option.setAttribute("class", "setting");
         option.appendChild(document.querySelector("#option").content.cloneNode(true));
         option.querySelector(".item").value = items[i];
         option.querySelector(".color").value = colors[i];
+        remove = option.querySelector(".remove");
+        remove.setAttribute("optid", i.toString());
+        remove.addEventListener("click", removeOption)
         settingArea.appendChild(option);
     }
     const addOpt = document.createElement("button");
@@ -146,6 +150,12 @@ function saveSettings(e){
     wheels[wheelIndex] = wheelObj;
 
     localStorage.setItem("wheels", JSON.stringify(wheels));
+}
+
+function removeOption(e){
+    const allOptions = document.querySelectorAll(".setting");
+    const option = allOptions[e.target.getAttribute("optid")];
+    option.remove();
 }
 
 function addOption(){
