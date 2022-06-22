@@ -2,9 +2,6 @@
     box-sizing: border-box;
 }
 
-.pointerCanvas{
-    border: black dashed thin;
-}
 
 #main{
     display: grid;
@@ -12,8 +9,10 @@
 }
 
 .buttonGroup{
-    margin: 20px 0;
     position: relative;
+    margin: auto;
+    text-align: center;
+    z-index: 5;
 }
 
 #addWheelArea{
@@ -32,13 +31,21 @@
     min-width: 410px;
 }
 
+.container{
+    width: 400px;
+}
+
 .wheelCanvas{
+    width: 400px;
+    height: 400px;
     position: absolute;
     z-index: 1;
     transform: rotate(var(--r, 0deg));
 }
 
 .pointerCanvas{
+    width: 400px;
+    height: 400px;
     position: absolute;
     z-index: 2;
 }
