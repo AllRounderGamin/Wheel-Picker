@@ -117,6 +117,7 @@ class fortuneWheel extends HTMLElement{
     }
 
     deleteWheel(){
+        // if revisiting, move this to index.js
         const wheelList = JSON.parse(localStorage.getItem("wheels"));
         for (let wheel of wheelList){
             if (wheel.id === this.getAttribute("id")){

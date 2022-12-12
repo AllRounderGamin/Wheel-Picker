@@ -1,0 +1,27 @@
+{
+    "name": "wheel-picker",
+    "version": "1.0.0",
+    "description": "A simple wheel picker application using a custom wheel element for the UoP Summer Coding Challenge",
+    "main": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "run": "http-server ./Minified"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AllRounderGamin/Wheel-Picker.git"
+    },
+    "keywords": [
+        "Wheel",
+        "Picker"
+    ],
+    "author": "Benjamin Richards",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AllRounderGamin/Wheel-Picker/issues"
+    },
+    "homepage": "https://github.com/AllRounderGamin/Wheel-Picker#readme",
+    "devDependencies": {
+        "http-server": "^14.1.0"
+    }
+}

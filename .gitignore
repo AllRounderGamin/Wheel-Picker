@@ -1,0 +1,6 @@
+/node_modules
+.idea
+
+# Tested on node http-server to avoid CORS issue, npm not needed in GH version
+
+package-lock.json
